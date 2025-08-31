@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="filter">
+    <xs:complexType>
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:group ref="andor"/>
+            <xs:group ref="operators"/>
+        </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:group name="andor">
+  <xs:choice>
+      <xs:element ref="and"/>
+      <xs:element ref="or"/>
+  </xs:choice>
+  </xs:group>
+
+  <xs:group name="operators">
+  <xs:choice>
+      <xs:element ref="equalto"/>
+      <xs:element ref="notequalto"/>
+  </xs:choice>
+  </xs:group>
+
+  <xs:element name="and">
+    <xs:complexType>
+        <xs:choice minOccurs="2" maxOccurs="unbounded">
+            <xs:group ref="andor"/>
+            <xs:group ref="operators"/>
+        </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="or">
+  <xs:complexType>
+      <xs:choice minOccurs="2" maxOccurs="unbounded">
+          <xs:group ref="andor"/>
+          <xs:group ref="operators"/>
+      </xs:choice>
+  </xs:complexType>
+  </xs:element>
+
+  <xs:element name="equalto">
+  <xs:complexType>
+      <xs:sequence>
+          <xs:element name="field" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+
+  <xs:element name="notequalto">
+  <xs:complexType>
+      <xs:sequence>
+          <xs:element name="field" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+</xs:schema>

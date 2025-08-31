@@ -1,0 +1,12 @@
+<filter>
+    <and>
+        <notequalto>
+            <field>STATUS</field>
+            <value>inactive</value>
+        </notequalto>
+        <equalto>
+            <field>NAME</field>
+            <value>Swag.com</value>
+        </equalto>
+    </and>
+</filter>
