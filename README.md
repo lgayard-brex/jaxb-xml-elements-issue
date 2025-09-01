@@ -1,5 +1,5 @@
 # About
-This is a POC project with a single unit test to evidence a bug with XML serialization using Jackson and Jakarta XML bindings.
+This is a proof-of-concept project with a single unit test to evidence a bug with XML serialization using Jackson and Jakarta XML bindings.
 
 # Files
 File filter.xsd is the XSD schema definition for the domain.
