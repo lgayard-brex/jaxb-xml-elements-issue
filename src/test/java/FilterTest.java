@@ -96,36 +96,39 @@ public class FilterTest {
     }
 
     private XmlMapper makeJacksonXmlMapper() {
-        /*
-         * Configure Jackson to consider Jakarta XML Bind annotations
-         * From: https://github.com/FasterXML/jackson-modules-base/tree/2.15/jakarta-xmlbind
-         */
-        XmlMapper mapper = new XmlMapper();
+        var typeFactory = TypeFactory.defaultInstance();
 
-        TypeFactory typeFactory = TypeFactory.defaultInstance();
-        mapper.setAnnotationIntrospector(new JakartaXmlBindAnnotationIntrospector(typeFactory));
+        return XmlMapper
+            .xmlBuilder()
 
-        /*
-         * Configure Jackson to write XML declaration header.
-         */
-        mapper.enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION);
+            /*
+             * Configure Jackson to consider Jakarta XML Bind annotations
+             * From: https://github.com/FasterXML/jackson-modules-base/tree/2.15/jakarta-xmlbind
+             */
+            .annotationIntrospector(new JakartaXmlBindAnnotationIntrospector(typeFactory))
 
-        /*
-         * Ignore unmapped elements.
-         * https://stackoverflow.com/a/25718495
-         */
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            /*
+             * Configure Jackson to write XML declaration header.
+             */
+            .enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION)
 
-        /*
-         * Ignore empty elements when serializing.
-         * From: https://stackoverflow.com/a/44186962
-         */
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+            /*
+             * Ignore unmapped elements.
+             * https://stackoverflow.com/a/25718495
+             */
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
-        /*
-         * Enable case-insensitive properties
-         */
-        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
-        return mapper;
+            /*
+             * Ignore empty elements when serializing.
+             * From: https://stackoverflow.com/a/44186962
+             */
+            .serializationInclusion(JsonInclude.Include.NON_EMPTY)
+
+            /*
+             * Enable case-insensitive properties
+             */
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
+
+            .build();
     }
 }
